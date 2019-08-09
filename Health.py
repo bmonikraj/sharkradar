@@ -1,7 +1,7 @@
 import sys
 from os.path import dirname as opd, realpath as opr
 import os
-basedir = opd(opd(opr(__file__)))
+basedir = opd(opr(__file__))
 sys.path.append(basedir)
 
 
