@@ -2,6 +2,7 @@
 import sys
 from os.path import dirname as opd, realpath as opr
 import os
+import time
 
 basedir = opd(opr(__file__))
 sys.path.append(basedir)
@@ -28,12 +29,13 @@ from Discovery import Discovery
 
 @app.route("/health", methods=['PUT'])
 def health():
-	json_object = {}
-	json_object['ip'] = request.form['ip']
-	json_object['port'] = request.form['port']
-	json_object['service_name'] = request.form['service_name']
-	json_object['status'] = request.form['status']
-	json_object['health_interval'] = request.form['health_interval']
+	json_object = request.form['request_body']
+	json_object['current_timestamp'] = time.time()
+	# json_object['ip'] = request.form['ip']
+	# json_object['port'] = request.form['port']
+	# json_object['service_name'] = request.form['service_name']
+	# json_object['status'] = request.form['status']
+	# json_object['health_interval'] = request.form['health_interval']
 	return Health.health(json_object)
 
 

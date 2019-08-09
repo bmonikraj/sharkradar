@@ -29,6 +29,7 @@ class Health:
 		service_name = req_body['service_name']
 		status = req_body['status']
 		health_interval = req_body['health_interval']
+		current_time_stamp = req_body['current_timestamp']
 
 		if(service_name and ip and port):
 			if(status == "up" ):
@@ -36,7 +37,7 @@ class Health:
 				cursor = conn.execute("SELECT * from SERVICE_RD WHERE SERVICE_NAME ="+ service_name + " AND IP = "+ ip +" PORT = "+ port);
 				if(cursor.length > 0):
 					#update report_time_stamp and health_interval in db
-					conn.execute("UPDATE SERVICE_RD SET TIME_STAMP = CURRENT_TIMESTAMP(), HEALTH_INTERVAL = "+ health_interval +" WHERE SERVICE_NAME ="+ service_name + " AND IP = "+ ip +" PORT = "+ port);
+					conn.execute("UPDATE SERVICE_RD SET TIME_STAMP = current_time_stamp, HEALTH_INTERVAL = "+ health_interval +" WHERE SERVICE_NAME ="+ service_name + " AND IP = "+ ip +" PORT = "+ port);
 					conn.commit()
 					if(conn.total_changes > 0):
 						return True
@@ -45,7 +46,7 @@ class Health:
 				else:
 					#insert a record in db with all 5 parameters
 					conn.execute("INSERT INTO SERVICE_RD (SERVICE_NAME, IP, PORT, TIME_STAMP, HEALTH_INTERVAL) \
-      				VALUES (service_name, ip, port, "+CURRENT_TIMESTAMP()+", health_interval)");
+      				VALUES (service_name, ip, port, "+ current_time_stamp +", health_interval)");
 					conn.commit()
 					return True
 		
