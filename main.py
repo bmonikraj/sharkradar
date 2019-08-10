@@ -19,7 +19,7 @@ conn.execute('''CREATE TABLE [IF NOT EXISTS] SERVICE_RD
          SERVICE_NAME  TEXT    NOT NULL,
          IP            TEXT     NOT NULL,
          PORT          TEXT NOT NULL,
-         TIME_STAMP     TIMESTAMP NOT NULL
+         TIME_STAMP     BIGINT NOT NULL
          HEALTH_INTERVAL TEXT NOT NULL);''')
 
 app = Flask(__name__)
