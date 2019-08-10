@@ -14,7 +14,7 @@ import sqlite3
 conn = sqlite3.connect('radar-service.db')
 print "Opened database successfully";
 
-conn.execute('''CREATE TABLE SERVICE_RD
+conn.execute('''CREATE TABLE [IF NOT EXISTS] SERVICE_RD
          (ID INT PRIMARY KEY     NOT NULL,
          SERVICE_NAME  TEXT    NOT NULL,
          IP            TEXT     NOT NULL,
