@@ -7,7 +7,7 @@ import sqlite3
 basedir = opd(opr(__file__))
 sys.path.append(basedir)
 
-import radarDbutils
+import sharkradarDbutils
 
 class Discovery:
 	"""
@@ -20,8 +20,8 @@ class Discovery:
 			@params: service_name: Unique service name of the micro-service
 			@return: A tuple containing ip and port of the active micro-service instance
 		"""
-		radarDbutils.deleteServiceByNameAndTimestampDifferenceWithHealthInterval(service_name)
-		service_name = radarDbutils.findServiceByName(service_name)
+		sharkradarDbutils.deleteServiceByNameAndTimestampDifferenceWithHealthInterval(service_name)
+		service_name = sharkradarDbutils.findServiceByName(service_name)
 		len_ = len(service_instances)
 		mem_usage_wt = 4.0
 		cpu_usage_wt = 4.0

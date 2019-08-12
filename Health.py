@@ -6,7 +6,7 @@ import sqlite3
 basedir = opd(opr(__file__))
 sys.path.append(basedir)
 
-import radarDbutils
+import sharkradarDbutils
 
 class Health:
 	"""
@@ -53,15 +53,15 @@ class Health:
 		if((mem_usage >= 0.0 and mem_usage <= 100.0) or (cpu_usage >= 0.0 and cpu_usage <= 100.0) or (nw_tput_bw_ratio >= 0.0 and nw_tput_bw_ratio <= 100.0) or (req_active_ratio >= 0.0 and req_active_ratio <= 100.0) or (success_rate >= 0.0 and success_rate <= 100.0)):
 			if(service_name and ip and port):
 				if status == "up" :
-					response = radarDbutils.findServiceByNameAndIpAndPort(service_name, ip, port)
+					response = sharkradarDbutils.findServiceByNameAndIpAndPort(service_name, ip, port)
 					if len(response) > 0 :
-						total_changes = radarDbutils.updateServiceByAll(current_time_stamp, health_interval, mem_usage, cpu_usage, nw_tput_bw_ratio, req_active_ratio, success_rate, service_name, ip, port)
+						total_changes = sharkradarDbutils.updateServiceByAll(current_time_stamp, health_interval, mem_usage, cpu_usage, nw_tput_bw_ratio, req_active_ratio, success_rate, service_name, ip, port)
 						if total_changes > 0 :
 							return True
 						return False
-					radarDbutils.insertServiceByAll(service_name, ip, port, current_time_stamp, health_interval, mem_usage, cpu_usage, nw_tput_bw_ratio, req_active_ratio, success_rate)
+					sharkradarDbutils.insertServiceByAll(service_name, ip, port, current_time_stamp, health_interval, mem_usage, cpu_usage, nw_tput_bw_ratio, req_active_ratio, success_rate)
 					return True
-				radarDbutils.deleteServiceByNameAndIpAndPort(service_name, ip, port)
+				sharkradarDbutils.deleteServiceByNameAndIpAndPort(service_name, ip, port)
 				return True
 			return False
 		return False

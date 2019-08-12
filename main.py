@@ -10,9 +10,9 @@ sys.path.append(basedir)
 
 from Health import Health
 from Discovery import Discovery
-import radarDbutils
+import sharkradarDbutils
 
-radarDbutils.createTableIfNotExists()
+sharkradarDbutils.createTableIfNotExists()
 app = Flask(__name__)
 
 @app.route("/health", methods=['PUT'])
