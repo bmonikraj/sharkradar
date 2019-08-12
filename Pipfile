@@ -9,6 +9,7 @@ verify_ssl = true
 flask = "*"
 pysqlite3 = "*"
 gunicorn = "*"
+autopep8 = "*"
 
 [requires]
 python_version = "3.7"
