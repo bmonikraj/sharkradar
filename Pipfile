@@ -8,8 +8,8 @@ verify_ssl = true
 [packages]
 flask = "*"
 pysqlite3 = "*"
-gunicorn = "*"
 autopep8 = "*"
+waitress = "*"
 
 [requires]
 python_version = "3.7"
