@@ -1,6 +1,7 @@
 import sys
 from os.path import dirname as opd, realpath as opr
 import os
+import time
 import sqlite3
 
 basedir = opd(opr(__file__))
@@ -52,7 +53,7 @@ def findServiceByName(service_name):
 	conn = sqlite3.connect(DB_PATH)
 	service_instances = conn.execute("""SELECT * from SERVICE_RD WHERE SERVICE_NAME = ?""", (service_name, )).fetchall()
 	conn.close()
-	return service_name
+	return service_instances
 
 def updateServiceByAll(current_time_stamp, health_interval, mem_usage, cpu_usage, nw_tput_bw_ratio, req_active_ratio, success_rate, service_name, ip, port):
 	conn = sqlite3.connect(DB_PATH)

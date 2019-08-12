@@ -2,7 +2,6 @@ import sharkradarDbutils
 import sys
 from os.path import dirname as opd, realpath as opr
 import os
-import time
 import sqlite3
 
 basedir = opd(opr(__file__))
@@ -28,7 +27,7 @@ class Discovery:
         """
         sharkradarDbutils.deleteServiceByNameAndTimestampDifferenceWithHealthInterval(
             service_name)
-        service_name = sharkradarDbutils.findServiceByName(service_name)
+        service_instances = sharkradarDbutils.findServiceByName(service_name)
         len_ = len(service_instances)
         mem_usage_wt = 4.0
         cpu_usage_wt = 4.0
