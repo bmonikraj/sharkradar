@@ -1,12 +1,12 @@
-import sharkradarDbutils
 import sys
 from os.path import dirname as opd, realpath as opr
 import os
 import sqlite3
 
-basedir = opd(opr(__file__))
+basedir = opd(opd(opr(__file__)))
 sys.path.append(basedir)
 
+from src.Util import sharkradarDbutils
 
 class Health:
     """
