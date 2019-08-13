@@ -49,7 +49,7 @@ setuptools.setup(
     description="Simple micro service registry and discovery tool compatible with any service type",
     long_description=readme,
     classifiers=CLASSIFIERS,
-    packages=find_packages("src"),
+    packages=setuptools.find_packages("src"),
     include_package_data=True,
     python_requires=">=2.7, >=3",
     install_requires=INSTALL_REQUIRE,
