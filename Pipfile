@@ -10,6 +10,10 @@ flask = "*"
 pysqlite3 = "*"
 autopep8 = "*"
 waitress = "*"
+setuptools = "*"
+wheel = "*"
+tqdm = "*"
+twine = "*"
 
 [requires]
 python_version = "3.7"
