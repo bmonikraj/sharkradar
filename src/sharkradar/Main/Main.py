@@ -3,10 +3,10 @@ from os.path import dirname as opd, realpath as opr
 import os
 from waitress import serve
 
-basedir = opd(opr(__file__))
+basedir = opd(opd(opd(opr(__file__))))
 sys.path.append(basedir)
 
-from src.Controller.Controller import app
+from sharkradar.Controller.Controller import app
 
 def main():
 	try:

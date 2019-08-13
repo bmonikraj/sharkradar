@@ -4,7 +4,7 @@ import os
 import time
 import sqlite3
 
-basedir = opd(opd(opr(__file__)))
+basedir = opd(opd(opd(opr(__file__))))
 sys.path.append(basedir)
 
 DB_PATH = './sharkradar-service.db'

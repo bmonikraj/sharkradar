@@ -3,10 +3,10 @@ from os.path import dirname as opd, realpath as opr
 import os
 import sqlite3
 
-basedir = opd(opd(opr(__file__)))
+basedir = opd(opd(opd(opr(__file__))))
 sys.path.append(basedir)
 
-from src.Util import sharkradarDbutils
+from sharkradar.Util import sharkradarDbutils
 
 class Discovery:
     """

@@ -5,12 +5,12 @@ import time
 import json
 from flask import Flask, request
 
-basedir = opd(opd(opr(__file__)))
+basedir = opd(opd(opd(opr(__file__))))
 sys.path.append(basedir)
 
-from src.Util import sharkradarDbutils
-from src.Service.Health import Health
-from src.Service.Discovery import Discovery
+from sharkradar.Util import sharkradarDbutils
+from sharkradar.Service.Health import Health
+from sharkradar.Service.Discovery import Discovery
 
 sharkradarDbutils.createTableIfNotExists()
 app = Flask(__name__)

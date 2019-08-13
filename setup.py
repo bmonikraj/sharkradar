@@ -17,7 +17,7 @@ CLASSIFIERS = [
     'License :: OSI Approved :: BSD License',
     'Operating System :: MacOS :: MacOS X',
     'Operating System :: POSIX',
-    'Operating System :: Windows',
+    'Operating System :: Microsoft :: Windows',
     'Programming Language :: Python',
     'Programming Language :: Python :: 3',
     'Programming Language :: Python :: 3.7',
@@ -35,7 +35,7 @@ CLASSIFIERS = [
 
 setuptools.setup(
      
-    name="Sharkradar",
+    name="sharkradar",
     version="0.0.1",
     url="https://github.com/bmonikraj/sharkradar",
     project_urls={
@@ -46,12 +46,15 @@ setuptools.setup(
     license="BSD-3-Clause",
     author="Monik Raj Behera",
     author_email="bmonikraj@gmail.com",
+    maintainer="Preetam Keshari Nahak",
+    maintainer_email="preetamnahak@gmail.com",
     description="Simple micro service registry and discovery tool compatible with any service type",
     long_description=readme,
     classifiers=CLASSIFIERS,
     packages=setuptools.find_packages("src"),
+    package_dir={"":"src"},
     include_package_data=True,
     python_requires=">=2.7, >=3",
     install_requires=INSTALL_REQUIRE,
-    entry_points={"console_scripts": ["sharkradar = main:main"]},
+    entry_points={"console_scripts": ["sharkradar = sharkradar.Main.Main:main"]},
  )
