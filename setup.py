@@ -36,10 +36,10 @@ CLASSIFIERS = [
 setuptools.setup(
      
     name="sharkradar",
-    version="1.0",
+    version="1.1",
     url="https://github.com/bmonikraj/sharkradar",
     project_urls={
-        "Documentation": "https://github.com/bmonikraj/sharkradar",
+        "Documentation": "https://bmonikraj.github.io/sharkradar",
         "Code": "https://github.com/bmonikraj/sharkradar",
         "Issue tracker": "https://github.com/bmonikraj/sharkradar/issues",
     },
@@ -48,7 +48,7 @@ setuptools.setup(
     author_email="bmonikraj@gmail.com",
     maintainer="Preetam Keshari Nahak",
     maintainer_email="preetamnahak@gmail.com",
-    description="Simple micro service registry and discovery tool compatible with any service type",
+    description="Lightweight micro service registry and discovery tool, compatible with any HTTP based microservice",
     long_description=readme,
     classifiers=CLASSIFIERS,
     packages=setuptools.find_packages("src"),
