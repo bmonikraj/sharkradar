@@ -50,3 +50,12 @@ The architecture of sharkradar is pretty straight forward, keeping in mind:
 
  - Any client (with any tech stack) which understands and able to communicate to HTTP, can ask for a service location (*IP address* and *Port*) 
  - The address given is for the best (selected by a weight based priority algorithm) client with the asked `service name`
+
+## Contribution | Issues or Bugs | Suggestions
+- For *contribution*, fork the repository, develop and create Pull request with `master` branch 
+- For *Issue and bug reporting*, create a Issue on the repository, we or our fellow developer community will definitely look into it. And if you win the race and solve the bug, don't hesitate to take the credit by raising a pull request.
+- For *suggestions and features*, send a mail to the maintainer. Have already developed the feature, even better. Create a pull request for the same. Our maintainers will review the same and merge it :)
+
+## Maintainers
+[Monik Raj Behera](https://github.com/bmonikraj) - [bmonikraj@gmail.com](mailto:bmonikraj@gmail.com)
+[Preetam Nahak](https://github.com/preetamnahak007) [preetamnahak@gmail.com](mailto:preetamnahak@gmail.com)
