@@ -1,6 +1,20 @@
 # SharkRadar
 **Sharkradar** is a lightweight, yet flexible **service registry and discovery** tool, compatible with any microservice *(independent of tech stack)*, as long as your microservice supports **HTTP** for communication (generally, it surely would, unless you have some custom protocol for communication. In that case, *Congratulations* !)
 
+Sharkradar **is**
+:heavy_check_mark: Service (RD) registry and discovery
+:heavy_check_mark: HTTP based service 
+:heavy_check_mark: Compatible with any microservice 
+:heavy_check_mark: Weighted priority discovery
+:heavy_check_mark: Service which tells you the address of *best* instance of server which can handle your request
+:heavy_check_mark: Can register/discover heterogenous instances (of microservices) and homogenous instances
+
+Sharkradar is **not**
+:x: API Gateway
+:x: Not a router to redirect requests
+:x: Not a proxy/reverse-proxy
+:x: A poller which will check if the services are up. It only knows if services are up, only when service tells itself
+
 ## Architecture
 The architecture of sharkradar is pretty straight forward, keeping in mind:
 
