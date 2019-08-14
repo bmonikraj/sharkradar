@@ -58,4 +58,4 @@ The architecture of sharkradar is pretty straight forward, keeping in mind:
 
 ## Maintainers
 [Monik Raj Behera](https://github.com/bmonikraj) - [bmonikraj@gmail.com](mailto:bmonikraj@gmail.com) <br/>
-[Preetam Nahak](https://github.com/preetamnahak007) [preetamnahak@gmail.com](mailto:preetamnahak@gmail.com)
+[Preetam Nahak](https://github.com/preetamnahak007) - [preetamnahak@gmail.com](mailto:preetamnahak@gmail.com)
