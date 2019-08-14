@@ -1,11 +1,13 @@
 # SharkRadar
 **Sharkradar** is a lightweight, yet flexible **service registry and discovery** tool, compatible with any microservice *(independent of tech stack)*, as long as your microservice supports **HTTP** for communication (generally, it surely would, unless you have some custom protocol for communication. In that case, *Congratulations* :D !)
 
-## Installation and Guide
+## Installation 
 ```python
 pip install sharkradar
 ```
-[**Technical Documentation can be found here**](https://github.com/bmonikraj/sharkradar/wiki)
+
+## Technical Documentation
+[**Complete Technical Documentation available here, on project's wiki**](https://github.com/bmonikraj/sharkradar/wiki)
 
 ## Overview
 Sharkradar **is** <br/>
