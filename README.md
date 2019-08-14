@@ -57,5 +57,5 @@ The architecture of sharkradar is pretty straight forward, keeping in mind:
 - For *suggestions and features*, send a mail to the maintainer. Have already developed the feature, even better. Create a pull request for the same. Our maintainers will review the same and merge it :)
 
 ## Maintainers
-[Monik Raj Behera](https://github.com/bmonikraj) - [bmonikraj@gmail.com](mailto:bmonikraj@gmail.com)
+[Monik Raj Behera](https://github.com/bmonikraj) - [bmonikraj@gmail.com](mailto:bmonikraj@gmail.com) <br/>
 [Preetam Nahak](https://github.com/preetamnahak007) [preetamnahak@gmail.com](mailto:preetamnahak@gmail.com)
