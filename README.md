@@ -15,6 +15,7 @@ The architecture of sharkradar is pretty straight forward, keeping in mind:
 **The fundamental principle behind the architecture is a "publish/ask" mechanism** 
 
 > **Service R(registry)** => "You *(microservices/applications/consumers)* give me your fitness report. If I receive, I will give you work to do based on your ability, I am not gonna ask you for it :no_mouth:. And if I don't receive it within time, you will not be considered for work until next report"
+
 > **Service D(discovery)** => "You want to know which of person can do the job in best way and how to reach him, ask me! I will tell you best person's address, ONLY :neutral_face:. I am not gonna take you there"
 
 **Service Registration**
