@@ -7,7 +7,7 @@ pip install sharkradar
 ```
 
 ## Technical Documentation
-[**Complete Technical Documentation available here, on project's wiki**](https://github.com/bmonikraj/sharkradar/wiki)
+[**Complete Technical Documentation available here, on Read The Docs**](https://sharkradar.readthedocs.io/en/latest/)
 
 ## Overview
 Sharkradar **is** <br/>

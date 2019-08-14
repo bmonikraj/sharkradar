@@ -1,3 +1,6 @@
+"""
+Main functions for the project
+"""
 import sys
 from os.path import dirname as opd, realpath as opr
 import os
@@ -11,6 +14,12 @@ from sharkradar.Controller.Controller import app
 CLI_ARG_ERROR_HELP = "***\nCommand argument format : sharkradar --bind=<IP-addr>:<port>\n***"
 
 def main():
+	"""
+		Main entrypoint function of the project
+
+		Expects sys arguments while running the application
+		--bind=[IP ADDR]:[PORT]
+	"""
 	try:
 		first_arg = sys.argv[1]
 		if first_arg.split("=")[0]!="--bind":

@@ -1,3 +1,6 @@
+"""
+Discovery related functions for the project
+"""
 import sys
 from os.path import dirname as opd, realpath as opr
 import os
@@ -9,21 +12,20 @@ sys.path.append(basedir)
 from sharkradar.Util import sharkradarDbutils
 
 class Discovery:
-    """
-            Class for fetching details of a micro-service
-    """
+    """Class for fetching details of a micro-service """
+    
     @staticmethod
     def discovery(service_name):
         """
-                Function to fetch details of a micro-services from Service R/D
+        Function to fetch details of a micro-services from Service R/D
 
-                [*]_wt => Weight used for weighted mean to find priority
+        [*]_wt => Weight used for weighted mean to find priority
 
-                Priority = Sum of product of params and their corresponding weights/
-                                        Sum of all weights*100
+        Priority = Sum of product of params and their corresponding weights/
+                                Sum of all weights*100
 
-                @params: service_name: Unique service name of the micro-service
-                @return: A tuple containing ip and port of the active micro-service instance
+        @params: service_name: Unique service name of the micro-service
+        @return: A tuple containing ip and port of the active micro-service instance
         """
         sharkradarDbutils.deleteServiceByNameAndTimestampDifferenceWithHealthInterval(
             service_name)
