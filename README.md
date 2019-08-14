@@ -1,19 +1,26 @@
 # SharkRadar
-**Sharkradar** is a lightweight, yet flexible **service registry and discovery** tool, compatible with any microservice *(independent of tech stack)*, as long as your microservice supports **HTTP** for communication (generally, it surely would, unless you have some custom protocol for communication. In that case, *Congratulations* :smiley:!)
+**Sharkradar** is a lightweight, yet flexible **service registry and discovery** tool, compatible with any microservice *(independent of tech stack)*, as long as your microservice supports **HTTP** for communication (generally, it surely would, unless you have some custom protocol for communication. In that case, *Congratulations* :D !)
 
 Sharkradar **is** <br/>
-:heavy_check_mark: Service (RD) registry and discovery <br/>
-:heavy_check_mark: HTTP based service <br/>
-:heavy_check_mark: Compatible with any microservice <br/>
-:heavy_check_mark: Weighted priority discovery <br/>
-:heavy_check_mark: Service which tells you the address of *best* instance of server which can handle your request <br/>
-:heavy_check_mark: Can register/discover heterogenous instances (of microservices) and homogenous instances <br/>
+- Service (RD) registry and discovery <br/>
+- HTTP based service <br/>
+- Compatible with any microservice <br/>
+- Weighted priority discovery <br/>
+- Service which tells you the address of *best* instance of server which can handle your request <br/>
+- Can register/discover heterogenous instances (of microservices) and homogenous instances <br/>
 
 Sharkradar is **not** <br/>
-:x: API Gateway <br/>
-:x: Not a router to redirect requests <br/>
-:x: Not a proxy/reverse-proxy <br/>
-:x: A poller which will check if the services are up. It only knows if services are up, only when service tells itself <br/>
+- API Gateway <br/>
+- Not a router to redirect requests <br/>
+- Not a proxy/reverse-proxy <br/>
+- A poller which will check if the services are up. It only knows if services are up, only when service tells itself <br/>
+
+## Technical Requirements
+
+ 1. OS - Any OS which supports Python :D
+ 2. Dependency - Python (>=3 is preferred)
+ 3. Networking - similar to any other microservice/server (like exposing ports, IP address binding, etc)
+ 4. Any specific module/library/agent for Client/Microservices using Sharkradar - NO (Only a HTTP communication library/ability to make HTTP GET, PUT calls :D)
 
 ## Architecture
 The architecture of sharkradar is pretty straight forward, keeping in mind:
@@ -28,9 +35,9 @@ The architecture of sharkradar is pretty straight forward, keeping in mind:
 
 **The fundamental principle behind the architecture is a "publish/ask" mechanism** 
 
-> **Service R(registry)** => "You *(microservices/applications/consumers)* give me your fitness report. If I receive, I will give you work to do based on your ability, I am not gonna ask you for it :no_mouth:. And if I don't receive it within time, you will not be considered for work until next report"
+> **Service R(registry)** => "You *(microservices/applications/consumers)* give me your fitness report. If I receive, I will give you work to do based on your ability, I am not gonna ask you for it :(. And if I don't receive it within time, you will not be considered for work until next report"
 
-> **Service D(discovery)** => "You want to know which of person can do the job in best way and how to reach him, ask me! I will tell you best person's address, ONLY :neutral_face:. I am not gonna take you there"
+> **Service D(discovery)** => "You want to know which of person can do the job in best way and how to reach him, ask me! I will tell you best person's address, ONLY -_-. I am not gonna take you there"
 
 **Service Registration**
  - Client (Microservice - who wants to be discoverable through shark radar)
