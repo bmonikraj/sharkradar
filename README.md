@@ -9,8 +9,8 @@ The architecture of sharkradar is pretty straight forward, keeping in mind:
  - Lightweight
  - Low storage footprint
  - Low computational footprint
-
-![Architecture](https://raw.githubusercontent.com/bmonikraj/sharkradar/master/architectural%20diagram.png)
+ 
+![Architecture](https://drive.google.com/uc?id=19wH9r_8AU4gkSgNn-n-iT8IL0mpNZodX)
 
 **The fundamental principle behind the architecture is a "publish/ask" mechanism** 
 
