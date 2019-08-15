@@ -35,8 +35,10 @@ Sharkradar is **not** <br/>
 
  1. OS - Any OS which supports Python :D
  2. Dependency - Python (>=3 is preferred)
- 3. Networking - similar to any other microservice/server (like exposing ports, IP address binding, etc)
- 4. Any specific module/library/agent for Client/Microservices using Sharkradar - NO (Only a HTTP communication library/ability to make HTTP GET, PUT calls :D)
+ 3. Networking - similar to any other microservice/server (like exposing ports, IP address binding, etc). Must be reachable by all the services using sharkradar
+ 4. Any specific module/library/agent for Client/Microservices using Sharkradar - **NO** (Only a HTTP communication library/ability to make HTTP GET, PUT calls :D)
+ 5. Reachability - Sharkradar **must be reachable** by all the clients/microservices/services using sharkradar (network administrators, please take a note :D)
+ 6. Availability - Sharkradar is a standalone application, *for now!*. So sharkradar could be the single point of inter-microservice communication, and also single point of failure (of inter microservice communication)
 
 ## Architecture
 The architecture of sharkradar is pretty straight forward, keeping in mind:

@@ -10,7 +10,7 @@ import sqlite3
 basedir = opd(opd(opd(opr(__file__))))
 sys.path.append(basedir)
 
-DB_PATH = './sharkradar-service.db'
+DB_PATH = os.path.join(basedir,"sharkradar/Util/sharkradar-service.db")
 
 
 def createTableIfNotExists():

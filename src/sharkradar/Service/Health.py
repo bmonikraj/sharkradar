@@ -63,12 +63,12 @@ class Health:
         current_time_stamp = int(req_body['current_timestamp'])
 
         if(
-        	(mem_usage >= 0.0 and mem_usage <= 100.0) or (
-        		cpu_usage >= 0.0 and cpu_usage <= 100.0) or (
-        		nw_tput_bw_ratio >= 0.0 and nw_tput_bw_ratio <= 100.0) or (
-        		req_active_ratio >= 0.0 and req_active_ratio <= 100.0) or (
+        	(mem_usage >= 0.0 and mem_usage <= 100.0) and (
+        		cpu_usage >= 0.0 and cpu_usage <= 100.0) and (
+        		nw_tput_bw_ratio >= 0.0 and nw_tput_bw_ratio <= 100.0) and (
+        		req_active_ratio >= 0.0 and req_active_ratio <= 100.0) and (
         		success_rate >= 0.0 and success_rate <= 100.0)):
-            if(service_name and ip and port):
+            if(service_name != "" and ip != "" and port != ""):
                 if status == "up":
                     response = sharkradarDbutils.findServiceByNameAndIpAndPort(
                         service_name, ip, port)
