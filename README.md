@@ -9,6 +9,11 @@
 pip install sharkradar
 ```
 
+## Usage
+```python
+sharkradar --help
+```
+
 ## Technical Documentation
 [**Complete Technical Documentation available here, on project's wiki**](https://github.com/bmonikraj/sharkradar/wiki)
 
