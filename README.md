@@ -1,6 +1,6 @@
 # SharkRadar
 
-![Travis (.org)](https://img.shields.io/travis/bmonikraj/sharkradar) [![GitHub license](https://img.shields.io/github/license/bmonikraj/sharkradar)](https://github.com/bmonikraj/sharkradar/blob/master/LICENSE.rst) ![PyPI](https://img.shields.io/pypi/v/sharkradar) ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/bmonikraj/sharkradar)
+![Travis (.org)](https://img.shields.io/travis/bmonikraj/sharkradar) ![Coveralls github](https://img.shields.io/coveralls/github/bmonikraj/sharkradar) [![GitHub license](https://img.shields.io/github/license/bmonikraj/sharkradar)](https://github.com/bmonikraj/sharkradar/blob/master/LICENSE.rst) ![PyPI](https://img.shields.io/pypi/v/sharkradar) ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/bmonikraj/sharkradar)
 
 **Sharkradar** is a lightweight, yet flexible **service registry and discovery** tool, compatible with any microservice *(independent of tech stack)*, as long as your microservice supports **HTTP** for communication (generally, it surely would, unless you have some custom protocol for communication. In that case, *Congratulations* :D !)
 
