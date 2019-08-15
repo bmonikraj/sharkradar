@@ -6,7 +6,11 @@ with open("./README.md", "r") as fh:
 INSTALL_REQUIRE = [
 	'flask>=1.0.1',
 	'pysqlite3>=0.2.0',
-	'waitress>=1.2.0'
+	'waitress>=1.2.0',
+    'click>=7.0',
+    'pyfiglet>=0.8.0',
+    'termcolor>=1.1.0',
+    'colorama>=0.4.1'
 ]
 
 CLASSIFIERS = [
