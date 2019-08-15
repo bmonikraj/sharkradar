@@ -1,10 +1,6 @@
 # SharkRadar
 
-[![GitHub license](https://img.shields.io/github/license/bmonikraj/sharkradar)](https://github.com/bmonikraj/sharkradar/blob/master/LICENSE.rst)
-
-![PyPI](https://img.shields.io/pypi/v/sharkradar)
-
-![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/bmonikraj/sharkradar)
+![Travis (.org)](https://img.shields.io/travis/bmonikraj/sharkradar) [![GitHub license](https://img.shields.io/github/license/bmonikraj/sharkradar)](https://github.com/bmonikraj/sharkradar/blob/master/LICENSE.rst) ![PyPI](https://img.shields.io/pypi/v/sharkradar) ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/bmonikraj/sharkradar)
 
 **Sharkradar** is a lightweight, yet flexible **service registry and discovery** tool, compatible with any microservice *(independent of tech stack)*, as long as your microservice supports **HTTP** for communication (generally, it surely would, unless you have some custom protocol for communication. In that case, *Congratulations* :D !)
 
@@ -23,7 +19,7 @@ Sharkradar **is** <br/>
 - Compatible with any microservice <br/>
 - Weighted priority discovery <br/>
 - Service which tells you the address of *best* instance of server which can handle your request <br/>
-- Can register/discover heterogenous instances (of microservices) and homogenous instances <br/>
+- Can register/discover heterogeneous instances (of microservices) and homogeneous instances <br/>
 
 Sharkradar is **not** <br/>
 - API Gateway <br/>

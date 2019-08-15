@@ -5,5 +5,9 @@ python:
 install:
   - pip install pipenv
   - pipenv install 
+  - pip install pytest-cov
+  - pip install coveralls
 script:
-  - pytest --disable-pytest-warnings
+  - pytest --disable-pytest-warnings --cov=sharkradar
+after_success:
+  - coveralls
