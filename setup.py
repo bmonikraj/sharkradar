@@ -39,7 +39,7 @@ setuptools.setup(
     version="1.1.1",
     url="https://bmonikraj.github.io/sharkradar",
     project_urls={
-        "Documentation": "https://sharkradar.readthedocs.io/en/latest/",
+        "Documentation": "https://github.com/bmonikraj/sharkradar/wiki",
         "Code": "https://github.com/bmonikraj/sharkradar",
         "Issue tracker": "https://github.com/bmonikraj/sharkradar/issues",
     },
