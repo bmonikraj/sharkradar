@@ -133,6 +133,19 @@ TEST_PARAMS = {
                 "success_rate": "52.79",
                 "health_interval": "10",
                 "current_timestamp": time.time()
+    },
+    "health_object_6": {
+        "ip": "",
+        "port": "",
+        "service_name": "test_service_5",
+        "status": "up",
+                "mem_usage": "21.2",
+                "cpu_usage": "44.4",
+                "nw_tput_bw_ratio": "74.1",
+                "req_active_ratio": "48.1",
+                "success_rate": "52.79",
+                "health_interval": "10",
+                "current_timestamp": time.time()
     }
 }
 
@@ -256,7 +269,7 @@ def foreach_test():
 
 def test_001_health_status_register(foreach_test):
     """ Register service """
-    assert Health.health(TEST_PARAMS["health_object_1"])
+    assert Health.health(TEST_PARAMS["health_object_1"]) == True
 
 
 def test_002_health_status_deregister(foreach_test):
@@ -335,3 +348,7 @@ def test_006_discover_service_remove_dead(foreach_test):
     assert result == (
         TEST_PARAMS["health_object_5_b"]["ip"],
         TEST_PARAMS["health_object_5_b"]["port"])
+
+def test_007_health_status_register_improper_data(foreach_test):
+    """ Register service with improper data """
+    assert Health.health(TEST_PARAMS["health_object_6"]) == False

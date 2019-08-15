@@ -16,6 +16,11 @@ tqdm = "*"
 twine = "*"
 pytest = "*"
 pytest-sugar = "*"
+click = "*"
+pyfiglet = "*"
+termcolor = "*"
+colorama = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.7"

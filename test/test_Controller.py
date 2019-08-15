@@ -75,6 +75,18 @@ TEST_PARAMS = {
                 "req_active_ratio": "48.1",
                 "success_rate": "52.79",
                 "health_interval": "11",
+    },
+    "health_object_6": {
+        "ip": "102.25.84.74",
+        "port": "8079",
+        "service_name": "test_service_5",
+        "status123": "up",
+                "mem_usage": "415.2",
+                "cpu_usage": "44.4",
+                "nw_tput_bw_ratio": "74.1",
+                "req_active_ratio": "48.1",
+                "success_rate": "52.79",
+                "health_interval": "11",
     }
 }
 
@@ -135,14 +147,23 @@ def test_003_search_registered_best(foreach_test):
         "ip": TEST_PARAMS["health_object_2"]["ip"],
         "port": TEST_PARAMS["health_object_2"]["port"]}
 
+def test_004_search_registered_best(foreach_test):
+    """ Search for a service, with wrong paramters"""
+    response = foreach_test.get("/discovery/")
+    assert response.status.split(" ")[0] == "404"
 
-def test_004_health_send(foreach_test):
+def test_005_health_send(foreach_test):
     """ Send health for a service"""
     response = foreach_test.put("/health", data=TEST_PARAMS["health_object_4"])
     assert json.loads(response.data) == {"status": "True"}
 
 
-def test_005_health_send_improper_mem_usage(foreach_test):
+def test_006_health_send_improper_mem_usage(foreach_test):
     """ Send health for a service"""
     response = foreach_test.put("/health", data=TEST_PARAMS["health_object_5"])
+    assert json.loads(response.data) == {"status": "False"}
+
+def test_007_health_send_improper_params(foreach_test):
+    """ Send health for a service with wrong params"""
+    response = foreach_test.put("/health", data=TEST_PARAMS["health_object_6"])
     assert json.loads(response.data) == {"status": "False"}

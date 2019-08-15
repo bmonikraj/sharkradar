@@ -74,10 +74,7 @@ def discovery(service_name):
         @return : {"ip" : "<value>", "port" : "<value>"}
     """
     response_objects = {"ip": "", "port": ""}
-    try:
-        respTuple = Discovery.discovery(service_name)
-        response_objects["ip"] = respTuple[0]
-        response_objects["port"] = respTuple[1]
-        return json.dumps(response_objects)
-    except Exception as e:
-        return json.dumps(response_objects)
+    respTuple = Discovery.discovery(service_name)
+    response_objects["ip"] = respTuple[0]
+    response_objects["port"] = respTuple[1]
+    return json.dumps(response_objects)
