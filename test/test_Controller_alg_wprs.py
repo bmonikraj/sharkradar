@@ -10,6 +10,7 @@ sys.path.append(os.path.join(basedir, "src"))
 from sharkradar.Controller.Controller import app
 from sharkradar.Service.Health import Health
 from sharkradar.Util import sharkradarDbutils
+from sharkradar.Config.Config import Config
 
 TEST_PARAMS = {
     "SERVICE_NAME_UNREGISTERED": "unregistered",
@@ -95,6 +96,9 @@ TEST_PARAMS = {
 def foreach_test():
     print("Setup before test")
     """ Test Environment Setup for each test case """
+    Config.setDbPath(os.path.join(basedir, "src/sharkradar/Util"))
+    Config.setAlgorithm("wprs")
+    sharkradarDbutils.createTableIfNotExists()
     Health.health(TEST_PARAMS["health_object_1"])
     Health.health(TEST_PARAMS["health_object_2"])
     Health.health(TEST_PARAMS["health_object_3"])

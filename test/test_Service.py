@@ -11,8 +11,7 @@ sys.path.append(os.path.join(basedir, "src"))
 from sharkradar.Service.Discovery import Discovery
 from sharkradar.Service.Health import Health
 from sharkradar.Util import sharkradarDbutils
-
-DB_PATH = os.path.join(basedir, "src/sharkradar/Util/sharkradar-service.db")
+from sharkradar.Config.Config import Config
 
 
 TEST_PARAMS = {
@@ -154,7 +153,10 @@ TEST_PARAMS = {
 def foreach_test():
     print("Setup before test")
     """ Test Environment Setup for each test case """
-    conn = sqlite3.connect(DB_PATH)
+    Config.setDbPath(os.path.join(basedir, "src/sharkradar/Util"))
+    Config.setAlgorithm("wpmc")
+    sharkradarDbutils.createTableIfNotExists()
+    conn = sqlite3.connect(Config.getDbPath())
     conn.execute(
         """INSERT INTO SERVICE_RD (SERVICE_NAME, IP, PORT, TIME_STAMP, HEALTH_INTERVAL, MEM_USAGE, CPU_USAGE, NW_TPUT_BW_RATIO, REQ_ACTIVE_RATIO, SUCCESS_RATE) \
 						VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
@@ -243,7 +245,7 @@ def foreach_test():
     yield ""
     print("Teardown after test")
     """ Test Environment Clean up for each test case """
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(Config.getDbPath())
     conn.execute(
         """DELETE FROM SERVICE_RD WHERE SERVICE_NAME = ?""",
         (TEST_PARAMS["health_object_1"]["service_name"],))
@@ -274,7 +276,7 @@ def test_001_health_status_register(foreach_test):
 
 def test_002_health_status_deregister(foreach_test):
     """ Deregister service """
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(Config.getDbPath())
     service_instances = conn.execute(
         """SELECT * from SERVICE_RD WHERE SERVICE_NAME = ?""",
         (TEST_PARAMS["health_object_2"]["service_name"],
@@ -282,7 +284,7 @@ def test_002_health_status_deregister(foreach_test):
     conn.close()
     assert len(service_instances) > 0
     Health.health(TEST_PARAMS["health_object_2_down"])
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(Config.getDbPath())
     service_instances = conn.execute(
         """SELECT * from SERVICE_RD WHERE SERVICE_NAME = ?""",
         (TEST_PARAMS["health_object_2"]["service_name"],
@@ -293,7 +295,7 @@ def test_002_health_status_deregister(foreach_test):
 
 def test_003_health_status_update(foreach_test):
     """ Update service health data"""
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(Config.getDbPath())
     service_instances = conn.execute(
         """SELECT * from SERVICE_RD WHERE SERVICE_NAME = ?""",
         (TEST_PARAMS["health_object_2"]["service_name"],
@@ -301,7 +303,7 @@ def test_003_health_status_update(foreach_test):
     conn.close()
     assert service_instances[0][3] == 41.2
     Health.health(TEST_PARAMS["health_object_2_updated"])
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(Config.getDbPath())
     service_instances = conn.execute(
         """SELECT * from SERVICE_RD WHERE SERVICE_NAME = ?""",
         (TEST_PARAMS["health_object_2"]["service_name"],
@@ -328,7 +330,7 @@ def test_005_discover_service_best(foreach_test):
 
 def test_006_discover_service_remove_dead(foreach_test):
     """ Remove dead service while discovering"""
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(Config.getDbPath())
     service_instances = conn.execute(
         """SELECT * from SERVICE_RD WHERE SERVICE_NAME = ?""",
         (TEST_PARAMS["health_object_5_a"]["service_name"],
@@ -338,7 +340,7 @@ def test_006_discover_service_remove_dead(foreach_test):
     time.sleep(6)
     result = Discovery.discovery(
         TEST_PARAMS["health_object_5_a"]["service_name"])
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(Config.getDbPath())
     service_instance = conn.execute(
         """SELECT * from SERVICE_RD WHERE SERVICE_NAME = ?""",
         (TEST_PARAMS["health_object_5_a"]["service_name"],

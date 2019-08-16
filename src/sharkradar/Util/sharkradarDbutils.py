@@ -1,5 +1,5 @@
 """
-Utils functions for the project
+DB Utils functions for the project
 """
 import sys
 from os.path import dirname as opd, realpath as opr
@@ -10,8 +10,7 @@ import sqlite3
 basedir = opd(opd(opd(opr(__file__))))
 sys.path.append(basedir)
 
-DB_PATH = os.path.join(basedir,"sharkradar/Util/sharkradar-service.db")
-
+from sharkradar.Config.Config import Config
 
 def createTableIfNotExists():
     """
@@ -33,6 +32,7 @@ def createTableIfNotExists():
                                                             at which it will send health report to service
                                                             R/D continuously
     """
+    DB_PATH = Config.getDbPath()
     conn = sqlite3.connect(DB_PATH)
     conn.execute('''CREATE TABLE IF NOT EXISTS SERVICE_RD
          (SERVICE_NAME  TEXT    NOT NULL,
@@ -58,6 +58,7 @@ def findServiceByNameAndIpAndPort(service_name, ip, port):
     @params:port : Port number of the service
     @return: List of the query results from DB
     """
+    DB_PATH = Config.getDbPath()
     conn = sqlite3.connect(DB_PATH)
     response = conn.execute(
         """SELECT * FROM SERVICE_RD WHERE SERVICE_NAME = ? AND IP = ? AND PORT = ?""",
@@ -75,6 +76,7 @@ def findServiceByName(service_name):
     @params:service_name: A string, representing the service name
     @return: List of the query results from DB
     """
+    DB_PATH = Config.getDbPath()
     conn = sqlite3.connect(DB_PATH)
     service_instances = conn.execute(
         """SELECT * from SERVICE_RD WHERE SERVICE_NAME = ?""",
@@ -111,6 +113,7 @@ def updateServiceByAll(
     @params:port : Port number of the service
     @return: Total number of rows updated
     """
+    DB_PATH = Config.getDbPath()
     conn = sqlite3.connect(DB_PATH)
     conn.execute(
         """UPDATE SERVICE_RD SET  TIME_STAMP = ?, HEALTH_INTERVAL = ?, MEM_USAGE = ?, CPU_USAGE = ?, NW_TPUT_BW_RATIO = ?, REQ_ACTIVE_RATIO = ?, SUCCESS_RATE = ?  WHERE SERVICE_NAME = ? AND IP = ? AND PORT = ?""",
@@ -156,6 +159,7 @@ def insertServiceByAll(
     @params:req_active_ratio: Ratio of current requests being handled with maximum requests limit in %
     @param:success_rate: Ratio of successful response by total requests in %
     """
+    DB_PATH = Config.getDbPath()
     conn = sqlite3.connect(DB_PATH)
     conn.execute(
         """INSERT INTO SERVICE_RD (SERVICE_NAME, IP, PORT, TIME_STAMP, HEALTH_INTERVAL, MEM_USAGE, CPU_USAGE, NW_TPUT_BW_RATIO, REQ_ACTIVE_RATIO, SUCCESS_RATE) \
@@ -182,6 +186,7 @@ def deleteServiceByNameAndIpAndPort(service_name, ip, port):
     @params:ip: IP Address of the service
     @params:port: Port number of the service
     """
+    DB_PATH = Config.getDbPath()
     conn = sqlite3.connect(DB_PATH)
     conn.execute(
         """DELETE FROM SERVICE_RD WHERE SERVICE_NAME = ? AND IP = ? AND PORT = ?""",
@@ -200,6 +205,7 @@ def deleteServiceByNameAndTimestampDifferenceWithHealthInterval(service_name):
 
     @params:service_name: A string, representing the service name
     """
+    DB_PATH = Config.getDbPath()
     conn = sqlite3.connect(DB_PATH)
     current_time_epoch = time.time()
     conn.execute(

@@ -14,7 +14,7 @@ colorama.init(strip=not sys.stdout.isatty())
 basedir = opd(opd(opd(opr(__file__))))
 sys.path.append(basedir)
 
-from sharkradar.Controller.Controller import app
+from sharkradar.Config.Config import Config
 
 @click.command()
 @click.option(
@@ -27,7 +27,17 @@ from sharkradar.Controller.Controller import app
     default=16461,
     help="Port number on which sharkradar will be served",
     show_default=True)
-def main(addr, port):
+@click.option(
+    '--dbpath',
+    default=os.path.join(basedir, "sharkradar/Util"),
+    help="Path of DB, to be created by sharkradar")
+@click.option(
+    '--algorithm',
+    default="wpmc",
+    type=click.Choice(['wpmc', 'wprs']),
+    help="Algorithm to be used for instance selection\n (a) wpmc : Weighted Priority - major Mem usage and Cpu usage \n (b) wprs : Weighted Priority - major Success rate and Active Req ratio\n ",
+    show_default=True)
+def main(addr, port, dbpath, algorithm):
     """
             Sharkradar - Command Line Interface (CLI) utility
             ===================================================
@@ -38,10 +48,13 @@ def main(addr, port):
     """
     cprint(figlet_format('SHARKRADAR', font='slant'), 'blue', attrs=['bold'])
     try:
+        Config.setDbPath(dbpath)
+        Config.setAlgorithm(algorithm)
+        from sharkradar.Controller.Controller import app
         serve(app, listen=addr + ":" + str(port))
     except Exception as e:
         click.echo(
-            "Exception occurred while starting sharkradar\nRun 'sharkradar --help' for help")
+            "Exception occurred while starting sharkradar [{0}]\nRun 'sharkradar --help' for help".format(str(e)))
         sys.exit(5)
 
 
