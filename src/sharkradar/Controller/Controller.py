@@ -14,6 +14,7 @@ sys.path.append(basedir)
 from sharkradar.Util import sharkradarDbutils
 from sharkradar.Service.Health import Health
 from sharkradar.Service.Discovery import Discovery
+from sharkradar.Service.MonitorRealTime import MonitorRealTime
 
 sharkradarDbutils.createTableIfNotExists()
 app = Flask(__name__)
@@ -80,3 +81,13 @@ def discovery(retryid, service_name):
     response_objects["port"] = respTuple[1]
     response_objects["retryid"] = respTuple[2]
     return json.dumps(response_objects)
+
+@app.route("/monitor-real-time", methods=['GET'])
+def monitorRealTime():
+    """
+        API endpoint to fetch address of a service based on service name
+        @method: GET
+        @return : List of JSON Objects as services
+    """
+    response = MonitorRealTime.getAllServices()
+    return json.dumps(response)

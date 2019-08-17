@@ -105,6 +105,18 @@ def findServiceByName(service_name):
     conn.close()
     return service_instances
 
+def getAllService():
+    """
+    Find all services at current time
+
+    @return: List of the query results from DB
+    """
+    DB_PATH = Config.getDbPath()
+    conn = sqlite3.connect(DB_PATH)
+    service_instances = conn.execute(
+        """SELECT * from SERVICE_RD""").fetchall()
+    conn.close()
+    return service_instances
 
 def updateServiceByAll(
         current_time_stamp,

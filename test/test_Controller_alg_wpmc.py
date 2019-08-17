@@ -168,3 +168,8 @@ def test_007_health_send_improper_params(foreach_test):
     """ Send health for a service with wrong params"""
     response = foreach_test.put("/health", data=TEST_PARAMS["health_object_6"])
     assert json.loads(response.data) == {"status": "False"}
+
+def test_008_get_real_time_monitor(foreach_test):
+    """ API to fetch real time monitor"""
+    response = foreach_test.get("/monitor-real-time")
+    assert len(json.loads(response.data)) == 3
