@@ -14,7 +14,7 @@ from sharkradar.Config.Config import Config
 
 def createTableIfNotExists():
     """
-    Creates the table in SQLite3 file mode, if table doesn't exist
+    Creates the SERVICE_RD, SERVICE_LOGS table in SQLite3 file mode, if table doesn't exist
     Columns of Table
             KEYS:            		VALUES:
                ---------        	-------------
@@ -31,6 +31,8 @@ def createTableIfNotExists():
               x) health_interval  	The time interval specified by the micro-service
                                                             at which it will send health report to service
                                                             R/D continuously
+             xi) status             Status of the discovery log
+            xii) retry_id           Retry ID in discovery log
     """
     DB_PATH = Config.getDbPath()
     conn = sqlite3.connect(DB_PATH)
@@ -45,6 +47,24 @@ def createTableIfNotExists():
          SUCCESS_RATE REAL NOT NULL,
          TIME_STAMP     BIGINT NOT NULL,
          HEALTH_INTERVAL BIGINT NOT NULL);''')
+    conn.execute('''CREATE TABLE IF NOT EXISTS SERVICE_LOGS
+         (SERVICE_NAME  TEXT    NOT NULL,
+         IP            TEXT     NOT NULL,
+         PORT          TEXT NOT NULL,
+         MEM_USAGE      REAL NOT NULL,
+         CPU_USAGE      REAL NOT NULL,
+         NW_TPUT_BW_RATIO REAL NOT NULL,
+         REQ_ACTIVE_RATIO REAL NOT NULL,
+         SUCCESS_RATE REAL NOT NULL,
+         TIME_STAMP     BIGINT NOT NULL,
+         HEALTH_INTERVAL BIGINT NOT NULL);''')
+    conn.execute('''CREATE TABLE IF NOT EXISTS DISCOVERY_LOGS
+         (SERVICE_NAME  TEXT    NOT NULL,
+         IP            TEXT     NOT NULL,
+         PORT          TEXT NOT NULL,
+         TIME_STAMP     BIGINT NOT NULL,
+         STATUS         TEXT NOT NULL,
+         RETRY_ID       TEXT NOT NULL);''')
     conn.commit()
     conn.close()
 
@@ -174,6 +194,103 @@ def insertServiceByAll(
          nw_tput_bw_ratio,
          req_active_ratio,
          success_rate))
+    conn.commit()
+    conn.close()
+
+def insertServiceByAllPersist(
+        service_name,
+        ip,
+        port,
+        current_time_stamp,
+        health_interval,
+        mem_usage,
+        cpu_usage,
+        nw_tput_bw_ratio,
+        req_active_ratio,
+        success_rate):
+    """
+    Insert services details persistant
+
+    @params:service_name: A string, representing the service name
+    @params:ip: IP address of the service
+    @params:port : Port number of the service
+    @params:current_time_stamp: Current time stamp
+    @params:health_interval: Health interval frequency in secs, the maximum threshold after which
+                            if health status is not received, the service will be de-registered
+    @params:mem_usage: Memory usage in % of service
+    @params:cpu_usage: CPU usage in % of service
+    @params:nw_tput_bw_ratio: Ratio of current network throughput with maximum capacity (bandwidth) in %
+    @params:req_active_ratio: Ratio of current requests being handled with maximum requests limit in %
+    @param:success_rate: Ratio of successful response by total requests in %
+    """
+    DB_PATH = Config.getDbPath()
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute(
+        """INSERT INTO SERVICE_LOGS (SERVICE_NAME, IP, PORT, TIME_STAMP, HEALTH_INTERVAL, MEM_USAGE, CPU_USAGE, NW_TPUT_BW_RATIO, REQ_ACTIVE_RATIO, SUCCESS_RATE) \
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        (service_name,
+         ip,
+         port,
+         current_time_stamp,
+         health_interval,
+         mem_usage,
+         cpu_usage,
+         nw_tput_bw_ratio,
+         req_active_ratio,
+         success_rate))
+    conn.commit()
+    conn.close()
+
+def insertDiscoveryPersist(
+        service_name,
+        ip,
+        port,
+        current_time_stamp,
+        status,
+        retryid):
+    """
+    Insert discovery details persistant
+
+    @params:service_name: A string, representing the service name
+    @params:ip: IP address of the service
+    @params:port : Port number of the service
+    @params:current_time_stamp: Current time stamp
+    @params:status: Status of the service 
+    @params:retryid: Retry ID for the discovery log
+    """
+    DB_PATH = Config.getDbPath()
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute(
+        """INSERT INTO DISCOVERY_LOGS (SERVICE_NAME, IP, PORT, TIME_STAMP, STATUS, RETRY_ID) \
+                        VALUES (?, ?, ?, ?, ?, ?)""",
+        (service_name,
+         ip,
+         port,
+         current_time_stamp,
+         status,
+         retryid))
+    conn.commit()
+    conn.close()
+
+def updateDiscoveryPersist(
+        status,
+        retryid):
+    """
+    Update discovery details persistant
+
+    @params:service_name: A string, representing the service name
+    @params:ip: IP address of the service
+    @params:port : Port number of the service
+    @params:current_time_stamp: Current time stamp
+    @params:status: Status of the service 
+    @params:retryid: Retry ID for the discovery log
+    """
+    DB_PATH = Config.getDbPath()
+    conn = sqlite3.connect(DB_PATH)
+    conn.execute(
+        """UPDATE DISCOVERY_LOGS SET STATUS = ? WHERE RETRY_ID = ?""",
+        (status,
+         retryid))
     conn.commit()
     conn.close()
 

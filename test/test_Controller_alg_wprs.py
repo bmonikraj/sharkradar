@@ -127,29 +127,26 @@ def foreach_test():
 
 def test_001_search_unregistered(foreach_test):
     """ Search for a service, which is not available in registry """
-    response = foreach_test.get("/discovery/" +
+    response = foreach_test.get("/discovery/start/" +
                                 TEST_PARAMS["SERVICE_NAME_UNREGISTERED"])
-    assert json.loads(response.data) == {"ip": "", "port": ""}
+    assert json.loads(response.data) == {"ip": "", "port": "", "retryid" : ""}
 
 
 def test_002_search_registered(foreach_test):
     """ Search for a service, which is available in registry """
-    response = foreach_test.get("/discovery/" +
+    response = foreach_test.get("/discovery/start/" +
                                 TEST_PARAMS["health_object_3"]["service_name"])
-    assert json.loads(
-        response.data) == {
-        "ip": TEST_PARAMS["health_object_3"]["ip"],
-        "port": TEST_PARAMS["health_object_3"]["port"]}
-
+    assert json.loads(response.data)["ip"] == TEST_PARAMS["health_object_3"]["ip"]
+    assert json.loads(response.data)["port"] == TEST_PARAMS["health_object_3"]["port"]
+    assert json.loads(response.data)["retryid"] != "start"
 
 def test_003_search_registered_best(foreach_test):
     """ Search for a service, which is available in registry and the best one"""
-    response = foreach_test.get("/discovery/" +
+    response = foreach_test.get("/discovery/start/" +
                                 TEST_PARAMS["health_object_1"]["service_name"])
-    assert json.loads(
-        response.data) == {
-        "ip": TEST_PARAMS["health_object_2"]["ip"],
-        "port": TEST_PARAMS["health_object_2"]["port"]}
+    assert json.loads(response.data)["ip"] == TEST_PARAMS["health_object_2"]["ip"]
+    assert json.loads(response.data)["port"] == TEST_PARAMS["health_object_2"]["port"]
+    assert json.loads(response.data)["retryid"] != "start"
 
 def test_004_search_registered_best(foreach_test):
     """ Search for a service, with wrong paramters"""

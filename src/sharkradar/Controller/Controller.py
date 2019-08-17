@@ -65,16 +65,18 @@ def health():
         return json.dumps(response_objects)
 
 
-@app.route("/discovery/<service_name>", methods=['GET'])
-def discovery(service_name):
+@app.route("/discovery/<retryid>/<service_name>", methods=['GET'])
+def discovery(retryid, service_name):
     """
         API endpoint to fetch address of a service based on service name
         @method: GET
+        @param: retryid (string)
         @params: service_name (String)
         @return : {"ip" : "<value>", "port" : "<value>"}
     """
-    response_objects = {"ip": "", "port": ""}
-    respTuple = Discovery.discovery(service_name)
+    response_objects = {"ip": "", "port": "", "retryid" : ""}
+    respTuple = Discovery.discovery(service_name, retryid)
     response_objects["ip"] = respTuple[0]
     response_objects["port"] = respTuple[1]
+    response_objects["retryid"] = respTuple[2]
     return json.dumps(response_objects)

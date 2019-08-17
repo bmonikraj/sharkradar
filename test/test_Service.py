@@ -266,6 +266,11 @@ def foreach_test():
         """DELETE FROM SERVICE_RD WHERE SERVICE_NAME = ?""",
         (TEST_PARAMS["health_object_5_a"]["service_name"],))
     conn.commit()
+    conn.execute(
+        """DELETE FROM SERVICE_LOGS WHERE 1 = 1""")
+    conn.execute(
+        """DELETE FROM DISCOVERY_LOGS WHERE 1 = 1""")
+    conn.commit()
     conn.close()
 
 
@@ -314,21 +319,48 @@ def test_003_health_status_update(foreach_test):
 
 def test_004_discover_service(foreach_test):
     """ Discover service"""
-    assert Discovery.discovery(
-        TEST_PARAMS["health_object_4"]["service_name"]) == (
+    result = Discovery.discovery(
+        TEST_PARAMS["health_object_4"]["service_name"], "start")
+    assert TEST_PARAMS["health_object_4"]["ip"] == result[0]
+    assert TEST_PARAMS["health_object_4"]["port"] == result[1]
+    assert result[2] != "start"
+
+def test_005_discover_service_retry(foreach_test):
+    """ Discover service retry"""
+    result = Discovery.discovery(
+        TEST_PARAMS["health_object_4"]["service_name"], "start")
+    assert TEST_PARAMS["health_object_4"]["ip"] == result[0]
+    assert TEST_PARAMS["health_object_4"]["port"] == result[1]
+    assert result[2] != "start"
+    conn = sqlite3.connect(Config.getDbPath())
+    service_instances = conn.execute(
+        """SELECT * from DISCOVERY_LOGS WHERE SERVICE_NAME = ? AND IP = ? AND PORT = ?""",
+        (TEST_PARAMS["health_object_4"]["service_name"],
         TEST_PARAMS["health_object_4"]["ip"],
-        TEST_PARAMS["health_object_4"]["port"])
+        TEST_PARAMS["health_object_4"]["port"]
+         )).fetchall()
+    conn.close()
+    assert service_instances[0][4] == "SUCCESS"
+    Discovery.discovery(
+        TEST_PARAMS["health_object_4"]["service_name"], result[2])
+    conn = sqlite3.connect(Config.getDbPath())
+    service_instances = conn.execute(
+        """SELECT * from DISCOVERY_LOGS WHERE RETRY_ID = ?""",
+        (result[2],
+         )).fetchall()
+    conn.close()
+    assert service_instances[0][4] == "FAIL"
 
 
-def test_005_discover_service_best(foreach_test):
+def test_006_discover_service_best(foreach_test):
     """ Discover best service"""
-    assert Discovery.discovery(
-        TEST_PARAMS["health_object_3_a"]["service_name"]) == (
-        TEST_PARAMS["health_object_3_b"]["ip"],
-        TEST_PARAMS["health_object_3_b"]["port"])
+    result = Discovery.discovery(
+        TEST_PARAMS["health_object_3_a"]["service_name"], "start")
+    assert TEST_PARAMS["health_object_3_b"]["ip"] == result[0]
+    assert TEST_PARAMS["health_object_3_b"]["port"] == result[1]
+    assert result[2] != "start"
 
-
-def test_006_discover_service_remove_dead(foreach_test):
+def test_007_discover_service_remove_dead(foreach_test):
     """ Remove dead service while discovering"""
     conn = sqlite3.connect(Config.getDbPath())
     service_instances = conn.execute(
@@ -339,7 +371,8 @@ def test_006_discover_service_remove_dead(foreach_test):
     assert len(service_instances) == 2
     time.sleep(6)
     result = Discovery.discovery(
-        TEST_PARAMS["health_object_5_a"]["service_name"])
+        TEST_PARAMS["health_object_5_a"]["service_name"],
+        "start")
     conn = sqlite3.connect(Config.getDbPath())
     service_instance = conn.execute(
         """SELECT * from SERVICE_RD WHERE SERVICE_NAME = ?""",
@@ -347,10 +380,23 @@ def test_006_discover_service_remove_dead(foreach_test):
          )).fetchall()
     conn.close()
     assert len(service_instance) == 1
-    assert result == (
-        TEST_PARAMS["health_object_5_b"]["ip"],
-        TEST_PARAMS["health_object_5_b"]["port"])
+    assert result[0] == TEST_PARAMS["health_object_5_b"]["ip"]
+    assert result[1] == TEST_PARAMS["health_object_5_b"]["port"]
+    assert result[2] != "start"
 
-def test_007_health_status_register_improper_data(foreach_test):
+def test_008_health_status_register_improper_data(foreach_test):
     """ Register service with improper data """
     assert Health.health(TEST_PARAMS["health_object_6"]) == False
+
+def test_009_health_status_register_check_logs(foreach_test):
+    """ Register service and check service logs"""
+    Health.health(TEST_PARAMS["health_object_1"])
+    time.sleep(2)
+    Health.health(TEST_PARAMS["health_object_1"])
+    time.sleep(2)
+    Health.health(TEST_PARAMS["health_object_1"])
+    conn = sqlite3.connect(Config.getDbPath())
+    service_instance = conn.execute(
+        """SELECT * from SERVICE_LOGS""").fetchall()
+    conn.close()
+    assert len(service_instance) == 3
