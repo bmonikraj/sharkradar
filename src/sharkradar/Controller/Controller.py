@@ -6,7 +6,7 @@ from os.path import dirname as opd, realpath as opr
 import os
 import time
 import json
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 basedir = opd(opd(opd(opr(__file__))))
 sys.path.append(basedir)
@@ -17,7 +17,10 @@ from sharkradar.Service.Discovery import Discovery
 from sharkradar.Service.MonitorRealTime import MonitorRealTime
 
 sharkradarDbutils.createTableIfNotExists()
-app = Flask(__name__)
+STATIC_DIR = os.path.join(opd(opd(opr(__file__))), 'NonPy_UI_Build')
+app = Flask(__name__, 
+    static_folder=os.path.join(STATIC_DIR, 'build/static'), 
+    template_folder=os.path.join(STATIC_DIR, 'build'))
 
 
 @app.route("/health", methods=['PUT'])
@@ -91,3 +94,11 @@ def monitorRealTime():
     """
     response = MonitorRealTime.getAllServices()
     return json.dumps(response)
+
+@app.route('/dashboard/')
+def UIserve():
+    return render_template('index.html')
+
+
+if __name__ == '__main__':
+    app.run(use_reloader=True, port=5000, threaded=True)

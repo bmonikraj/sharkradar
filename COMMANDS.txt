@@ -9,3 +9,8 @@ Build with setup.py for wheel artifact :
 Upload to PyPi (Only AUTHOR can upload :P ) : 
 =============================================
 	python -m twine upload dist/*
+
+Run and Update UI Build in Package : 
+====================================
+	1. cd UI/dashboard && npm run build
+	2. cp -r UI/dashboard/build src/sharkradar/NonPy_UI_Build
