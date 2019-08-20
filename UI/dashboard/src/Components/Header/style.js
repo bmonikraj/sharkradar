@@ -4,7 +4,7 @@ export const style = theme => ({
   
   body : {
     background : theme.colorSecondary,
-    position : 'fixed',
+    position : 'relative',
     top : '0px',
     left : '0px',
     width : '100%',
@@ -29,6 +29,13 @@ export const style = theme => ({
     border : 'solid',
     borderColor : theme.colorPrimary,
     borderWidth : '1px',
+    padding : '5px'
+  },
+
+  forkOnGithubIcon : {
+    color : theme.colorPrimary,
+    fontSize : '24px',
+    fontWeight : 'bold',
     padding : '5px'
   }
 })

@@ -8,7 +8,7 @@ const Header = ({children, classes, ...props}) => {
     <div className={classes.body}>
       <div className={classes.headerRow}>
         <span className={classes.brandName}>Sharkradar <small><em>[Service Registry and Discovery]</em></small> Dashboard </span>
-        <span className={classes.forkOnGithub}>Fork on <a href="https://github.com/bmonikraj/sharkradar"><IoLogoGithub/></a></span>
+        <span className={classes.forkOnGithub}>Fork on <a className={classes.forkOnGithubIcon} href="https://github.com/bmonikraj/sharkradar"><IoLogoGithub/></a></span>
       </div>
     </div>
   );
