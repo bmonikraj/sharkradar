@@ -85,14 +85,23 @@ def discovery(retryid, service_name):
     response_objects["retryid"] = respTuple[2]
     return json.dumps(response_objects)
 
-@app.route("/monitor-real-time", methods=['GET'])
-def monitorRealTime():
+@app.route("/monitor-real-time/<data>/<limit>", methods=['GET'])
+def monitorRealTime(data, limit):
     """
         API endpoint to fetch address of a service based on service name
         @method: GET
+        @param:data: Type of data required
+        @param:limit: Latest n records
         @return : List of JSON Objects as services
     """
-    response = MonitorRealTime.getAllServices()
+    if(data=="current"):
+        response = MonitorRealTime.getAllServices()
+    if(data=="service"):
+        response = MonitorRealTime.getAllServicesLog(limit)
+    if(data=="discovery"):
+        response = MonitorRealTime.getAllDiscoveryLog(limit)
+    if(data!="current" and data!="service" and data!="discovery"):
+        return json.dumps([])
     return json.dumps(response)
 
 @app.route('/dashboard/')

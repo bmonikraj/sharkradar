@@ -253,6 +253,21 @@ def insertServiceByAllPersist(
     conn.commit()
     conn.close()
 
+def getServicePersist(limit=250):
+    """
+    Fetch service log records by limit
+    
+    @params:limit: latest n records
+    @return: List of the query results from DB
+    """
+    DB_PATH = Config.getDbPath()
+    conn = sqlite3.connect(DB_PATH)
+    service_instances = conn.execute(
+        """SELECT * from SERVICE_LOGS ORDER BY TIME_STAMP DESC LIMIT ?""",
+        (limit,)).fetchall()
+    conn.close()
+    return service_instances
+
 def insertDiscoveryPersist(
         service_name,
         ip,
@@ -283,6 +298,21 @@ def insertDiscoveryPersist(
          retryid))
     conn.commit()
     conn.close()
+
+def getDiscoveryPersist(limit=250):
+    """
+    Fetch service log records by limit
+    
+    @params:limit: latest n records
+    @return: List of the query results from DB
+    """
+    DB_PATH = Config.getDbPath()
+    conn = sqlite3.connect(DB_PATH)
+    service_instances = conn.execute(
+        """SELECT * from DISCOVERY_LOGS ORDER BY TIME_STAMP DESC LIMIT ?""",
+        (limit,)).fetchall()
+    conn.close()
+    return service_instances
 
 def updateDiscoveryPersist(
         status,

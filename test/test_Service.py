@@ -406,3 +406,13 @@ def test_010_real_time_monitor(foreach_test):
 	""" Real time monitor """
 	result = MonitorRealTime.getAllServices()
 	assert len(result) == 6
+	result = MonitorRealTime.getAllServicesLog("250")
+	assert len(result) == 0
+	Discovery.discovery(
+		TEST_PARAMS["health_object_5_a"]["service_name"],
+		"start")
+	Discovery.discovery(
+		TEST_PARAMS["health_object_5_b"]["service_name"],
+		"start")
+	result = MonitorRealTime.getAllDiscoveryLog("250")
+	assert len(result) == 0

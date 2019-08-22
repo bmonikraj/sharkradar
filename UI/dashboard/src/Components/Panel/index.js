@@ -16,13 +16,13 @@ const Panel = ({children, classes, ...props}) => {
         </TabList>
     
         <TabPanel>
-            <TabContent children={<h1>Hello 1</h1>}/>
+            <TabContent children={<h1>Hello 1</h1>} downloadFullData={false} dataURL={"/monitor-real-time/current"}/>
         </TabPanel>
         <TabPanel>
-            <TabContent children={<h1>Hello 2</h1>}/>
+            <TabContent children={<h1>Hello 2</h1>} downloadFullData={true} dataURL={"/monitor-real-time/service"}/>
         </TabPanel>
         <TabPanel>
-            <TabContent children={<h1>Hello 3</h1>}/>
+            <TabContent children={<h1>Hello 3</h1>} downloadFullData={true} dataURL={"/monitor-real-time/discovery"}/>
         </TabPanel>
     </Tabs>
     </div>

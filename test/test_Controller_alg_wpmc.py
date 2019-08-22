@@ -1,5 +1,6 @@
 import time
 import json
+import sqlite3
 import pytest
 import sys
 from os.path import dirname as opd, realpath as opr
@@ -9,6 +10,7 @@ sys.path.append(os.path.join(basedir, "src"))
 
 from sharkradar.Controller.Controller import app
 from sharkradar.Service.Health import Health
+from sharkradar.Service.Discovery import Discovery
 from sharkradar.Util import sharkradarDbutils
 from sharkradar.Config.Config import Config
 
@@ -123,6 +125,13 @@ def foreach_test():
         TEST_PARAMS["health_object_4"]["service_name"],
         TEST_PARAMS["health_object_4"]["ip"],
         TEST_PARAMS["health_object_4"]["port"])
+    conn = sqlite3.connect(Config.getDbPath())
+    conn.execute(
+        """DELETE FROM SERVICE_LOGS WHERE 1 = 1""")
+    conn.execute(
+        """DELETE FROM DISCOVERY_LOGS WHERE 1 = 1""")
+    conn.commit()
+    conn.close()
 
 
 def test_001_search_unregistered(foreach_test):
@@ -171,5 +180,22 @@ def test_007_health_send_improper_params(foreach_test):
 
 def test_008_get_real_time_monitor(foreach_test):
     """ API to fetch real time monitor"""
-    response = foreach_test.get("/monitor-real-time")
+    response = foreach_test.get("/monitor-real-time/current/0")
     assert len(json.loads(response.data)) == 3
+
+def test_009_get_real_time_monitor_serviceslogs(foreach_test):
+    """ API to fetch real time monitor"""
+    response = foreach_test.get("/monitor-real-time/service/250")
+    assert len(json.loads(response.data)) == 3
+
+def test_010_get_real_time_monitor_discoverylogs(foreach_test):
+    """ API to fetch real time monitor"""
+    Discovery.discovery(
+        TEST_PARAMS["health_object_3"]["service_name"], "start")
+    response = foreach_test.get("/monitor-real-time/discovery/250")
+    assert len(json.loads(response.data)) == 1
+
+def test_0011_real_time_monitor_bad_method(foreach_test):
+    """ Search for a service, with wrong paramters"""
+    response = foreach_test.get("/monitor-real-time/test/250")
+    assert json.loads(response.data) == []
