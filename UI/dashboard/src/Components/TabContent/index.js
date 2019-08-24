@@ -12,7 +12,7 @@ class TabContent extends React.Component{
     super(props);
     this.state = {
       switch : true,
-      timestamp : "Data as of "+new Date().toUTCString(),
+      timestamp : new Date().toUTCString(),
       data : [],
       downloadData : []
     };
@@ -28,7 +28,7 @@ class TabContent extends React.Component{
     if(this.state.switch){
       var _this_ = this;
       var t = new Date().toUTCString()
-      this.setState({timestamp : "Data as of "+t})
+      this.setState({timestamp : t})
       var limit = '50';
       Axios.get(this.props.dataURL+"/"+limit)
       .then(function(response){
@@ -65,16 +65,20 @@ class TabContent extends React.Component{
         <div className={this.props.classes.body}>
           <div className={this.props.classes.statusRow}>
             <div className={this.props.classes.timeStamp}>
-              {this.state.timestamp}
+              Data as of <span className={this.props.classes.boldtext}> {this.state.timestamp} </span>
             </div>
-            <div>
-              { this.props.downloadFullData && <GoCloudDownload onClick={this.downloadFullData}/>}
+            <div className={this.props.classes.download}>
+              <div className={this.props.classes.downloadIcon}>
+                { this.props.downloadFullData && <GoCloudDownload onClick={this.downloadFullData}/>}
+              </div>
+              <div className={this.props.classes.downloadIcon}>
               { this.props.downloadFullData && <CSVLink filename={"sharkaradar-"+this.state.timestamp+"-data.csv"} data={this.state.downloadData} separator={","}>
                 <GoDesktopDownload/>
               </CSVLink>}
+              </div>.
             </div>
             <div className={this.props.classes.switch}>
-             Fetch data from Server every 5 seconds : <Switch onChange={this.handleChange} checked={this.state.switch} />
+             Fetch data from Server every <span className={this.props.classes.boldtext}>5 seconds</span> : <Switch onChange={this.handleChange} checked={this.state.switch} />
             </div>
           </div>
           <div className={this.props.classes.data}>

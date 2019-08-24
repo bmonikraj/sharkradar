@@ -1,6 +1,7 @@
 export const MainTheme = {
-  colorPrimary : '#d65a31',
+  colorPrimary : '#eb7070',
   colorSecondary : '#222831',
   colorTertiary : '#393e46',
-  colorBackground : '#eeeeee'
+  colorBackground : '#eeeeee',
+  colorGreen : 'green'
 }

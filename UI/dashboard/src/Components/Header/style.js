@@ -1,9 +1,9 @@
 import {createUseStyles} from 'react-jss';
 
 export const style = theme => ({
-  
+
   body : {
-    background : theme.colorSecondary,
+    background : theme.colorTertiary,
     position : 'relative',
     top : '0px',
     left : '0px',
@@ -22,20 +22,17 @@ export const style = theme => ({
     fontWeight : 'bold'
   },
 
-  forkOnGithub : {
+  documentation : {
     color : theme.colorPrimary,
     fontSize : '24px',
     fontWeight : 'bold',
     border : 'solid',
     borderColor : theme.colorPrimary,
     borderWidth : '1px',
-    padding : '5px'
+    borderRadius : '2px',
+    padding : '5px',
+    '& a': {
+       color: theme.colorPrimary,
+    }
   },
-
-  forkOnGithubIcon : {
-    color : theme.colorPrimary,
-    fontSize : '24px',
-    fontWeight : 'bold',
-    padding : '5px'
-  }
 })

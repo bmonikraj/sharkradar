@@ -16,25 +16,29 @@ class CardsRealTime extends React.Component{
 
     return(
       <React.Fragment>
-        <div>
+        <div className={this.props.classes.body}>
         <Card.Group>
         {
           this.state.rowdata.map((data, index) => {
             return(
               <Card>
-                <Card.Content header={data['service_name']} />
-                <Card.Content description={'Host Address : '+data['ip']+':'+data['port']} />
+                <Card.Content extra className={this.props.classes.header}>
+                  {data['service_name']}
+                </Card.Content>
+                <Card.Content extra className={this.props.classes.hostaddr}>
+                  {data['ip']+':'+data['port']}
+                </Card.Content>
                 <Card.Content extra>
                   <div className={this.props.classes.row}>
                     <div className={this.props.classes.column}>
-                      <p>Mem Usage (%) - {data['mem_usage']}</p>
-                      <p>CPU Usage (%) - {data['cpu_usage']}</p>
-                      <p>NW TP BW ratio (%) - {data['nw_tput_bw_ratio']}</p>
+                      <p className={this.props.classes.dataRow}><span className={this.props.classes.dataKey}>Mem Usage (%) -</span> <span className={this.props.classes.dataValue}>{data['mem_usage']}</span></p>
+                      <p className={this.props.classes.dataRow}><span className={this.props.classes.dataKey}>CPU Usage (%) -</span> <span className={this.props.classes.dataValue}>{data['cpu_usage']}</span></p>
+                      <p className={this.props.classes.dataRow}><span className={this.props.classes.dataKey}>NW TP BW ratio (%) -</span> <span className={this.props.classes.dataValue}>{data['nw_tput_bw_ratio']}</span></p>
                     </div>
                     <div className={this.props.classes.column}>
-                      <p>Active Request Ratio (%) - {data['req_active_ratio']}</p>
-                      <p>Success Rate (%) - {data['Success Rate']}</p>
-                      <p>Health Interval (s) - {data['health_interval']}</p>
+                      <p className={this.props.classes.dataRow}><span className={this.props.classes.dataKey}>Active Request Ratio (%) -</span> <span className={this.props.classes.dataValue}>{data['req_active_ratio']}</span></p>
+                      <p className={this.props.classes.dataRow}><span className={this.props.classes.dataKey}>Success Rate (%) -</span> <span className={this.props.classes.dataValue}>{data['success_rate']}</span></p>
+                      <p className={this.props.classes.dataRow}><span className={this.props.classes.dataKey}>Health Interval (s) -</span> <span className={this.props.classes.dataValue}>{data['health_interval']}</span></p>
                     </div>
                   </div>
                 </Card.Content>

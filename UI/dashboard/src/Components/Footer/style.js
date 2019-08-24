@@ -3,7 +3,7 @@ import {createUseStyles} from 'react-jss';
 export const style = theme => ({
   
   body : {
-    background : theme.colorSecondary,
+    background : theme.colorTertiary,
     position : 'fixed',
     bottom : '0px',
     left : '0px',

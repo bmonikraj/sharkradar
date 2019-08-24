@@ -7,6 +7,7 @@ export const style = theme => ({
   },
   tabTitle : {
     color : theme.colorSecondary,
-    textTransform : 'uppercase'
+    textTransform : 'uppercase',
+    fontStyle : 'oblique'
   }
 })
