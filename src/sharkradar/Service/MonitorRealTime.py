@@ -36,7 +36,7 @@ class MonitorRealTime:
 			instance["req_active_ratio"] = str(services[i][6])
 			instance["success_rate"] = str(services[i][7])
 			instance["health_interval"] = str(services[i][8])
-			instance["timestamp"] = str(services[i][9])
+			instance["timestamp"] = str(time.strftime("%d-%m-%Y %H:%M:%S", time.gmtime(services[i][9])))
 			services[i] = instance
 		return services
 
@@ -60,7 +60,7 @@ class MonitorRealTime:
 			instance["req_active_ratio"] = str(services[i][6])
 			instance["success_rate"] = str(services[i][7])
 			instance["health_interval"] = str(services[i][8])
-			instance["timestamp"] = str(services[i][9])
+			instance["timestamp"] = str(time.strftime("%d-%m-%Y %H:%M:%S", time.gmtime(services[i][9])))
 			services[i] = instance
 		return services
 
@@ -78,7 +78,7 @@ class MonitorRealTime:
 			instance["service_name"] = str(services[i][0])
 			instance["ip"] = str(services[i][1])
 			instance["port"] = str(services[i][2])
-			instance["timestamp"] = str(services[i][3])
+			instance["timestamp"] = str(time.strftime("%d-%m-%Y %H:%M:%S", time.gmtime(services[i][3])))
 			instance["status"] = str(services[i][4])
 			instance["retry_id"] = str(services[i][5])
 			services[i] = instance

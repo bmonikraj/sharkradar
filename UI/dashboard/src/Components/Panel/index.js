@@ -4,6 +4,9 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import TabContent from '../TabContent/index';
 import { style } from './style';
+import TableDiscoveryLogs from '../TableDiscoveryLogs/index';
+import TableServiceLogs from '../TableServiceLogs/index';
+import CardsRealTime from '../CardsRealTime/index';
 
 const Panel = ({children, classes, ...props}) => {
   return (
@@ -11,18 +14,18 @@ const Panel = ({children, classes, ...props}) => {
       <Tabs>
         <TabList>
             <Tab><span className={classes.tabTitle}>Real Time Monitor</span></Tab>
-            <Tab><span className={classes.tabTitle}>Discovery Monitor Logs</span></Tab>
             <Tab><span className={classes.tabTitle}>Service Monitor Logs</span></Tab>
+            <Tab><span className={classes.tabTitle}>Discovery Monitor Logs</span></Tab>
         </TabList>
-    
+
         <TabPanel>
-            <TabContent children={<h1>Hello 1</h1>} downloadFullData={false} dataURL={"/monitor-real-time/current"}/>
+            <TabContent children={<CardsRealTime/>} downloadFullData={false} dataURL={"/monitor-real-time/current"}/>
         </TabPanel>
         <TabPanel>
-            <TabContent children={<h1>Hello 2</h1>} downloadFullData={true} dataURL={"/monitor-real-time/service"}/>
+            <TabContent children={<TableServiceLogs/>} downloadFullData={true} dataURL={"/monitor-real-time/service"}/>
         </TabPanel>
         <TabPanel>
-            <TabContent children={<h1>Hello 3</h1>} downloadFullData={true} dataURL={"/monitor-real-time/discovery"}/>
+            <TabContent children={<TableDiscoveryLogs/>} downloadFullData={true} dataURL={"/monitor-real-time/discovery"}/>
         </TabPanel>
     </Tabs>
     </div>

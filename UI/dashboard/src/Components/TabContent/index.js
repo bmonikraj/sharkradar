@@ -35,7 +35,8 @@ class TabContent extends React.Component{
         _this_.setState({data : response.data})
       })
       .catch(function(error){
-        alert("Error while fetching data")
+        console.log(error)
+        alert("Error while fetching data 1")
       })
     }
   }
@@ -77,7 +78,7 @@ class TabContent extends React.Component{
             </div>
           </div>
           <div className={this.props.classes.data}>
-            {this.props.children}
+            {React.cloneElement(this.props.children, {rowdata : this.state.data})}
           </div>
         </div>
       </React.Fragment>
