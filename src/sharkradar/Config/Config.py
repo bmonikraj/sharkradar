@@ -13,6 +13,7 @@ class Config:
 
 	DB_PATH = ""
 	ALGORITHM = ""
+	LAST_RECORDS = 0
 
 	@staticmethod
 	def getDbPath():
@@ -45,3 +46,17 @@ class Config:
 			2. wprs = Weighted Priority on Success Rate and Req Active Ratio
 		"""
 		Config.ALGORITHM = algorithm
+
+	@staticmethod
+	def getLastRecords():
+		"""
+			Getter for Last records (for wrel algorithm)
+		"""
+		return Config.LAST_RECORDS
+
+	@staticmethod
+	def setLastRecords(last_records=50):
+		"""
+			Setter for Last records (for wrel algorithm)
+		"""
+		Config.LAST_RECORDS = last_records

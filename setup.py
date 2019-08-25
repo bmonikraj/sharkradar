@@ -40,7 +40,7 @@ CLASSIFIERS = [
 setuptools.setup(
      
     name="sharkradar",
-    version="1.1.3",
+    version="1.2.0",
     url="https://bmonikraj.github.io/sharkradar",
     project_urls={
         "Documentation": "https://github.com/bmonikraj/sharkradar/wiki",

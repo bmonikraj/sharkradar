@@ -42,4 +42,8 @@ class Discovery:
 				ip, port = sharkradarAlgorithmutils.weightedPriorityReqActiveAndSuccessRate(service_instances)
 				sharkradarDbutils.insertDiscoveryPersist(service_name, ip, port, int(time.time()), "SUCCESS", retryid)
 				return (ip, port, retryid)
+			if Config.getAlgorithm() == "wrel":
+				ip, port = sharkradarAlgorithmutils.weightedPriorityReliabilityScore(service_instances, Config.getLastRecords())
+				sharkradarDbutils.insertDiscoveryPersist(service_name, ip, port, int(time.time()), "SUCCESS", retryid)
+				return (ip, port, retryid)
 		return ("", "", "")

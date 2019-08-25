@@ -34,10 +34,15 @@ from sharkradar.Config.Config import Config
 @click.option(
     '--algorithm',
     default="wpmc",
-    type=click.Choice(['wpmc', 'wprs']),
-    help="Algorithm to be used for instance selection\n (a) wpmc : Weighted Priority - major Mem usage and Cpu usage \n (b) wprs : Weighted Priority - major Success rate and Active Req ratio\n ",
+    type=click.Choice(['wpmc', 'wprs', 'wrel']),
+    help="Algorithm to be used for instance selection\n (a) wpmc : Weighted Priority - major Mem usage and Cpu usage \n (b) wprs : Weighted Priority - major Success rate and Active Req ratio\n (c) wrel : Weighted Reliability score\n",
     show_default=True)
-def main(addr, port, dbpath, algorithm):
+@click.option(
+    '--last_records',
+    default=50,
+    help="Port number on which sharkradar will be served",
+    show_default=True)
+def main(addr, port, dbpath, algorithm, last_records):
     """
             Sharkradar - Command Line Interface (CLI) utility
             ===================================================
@@ -50,6 +55,7 @@ def main(addr, port, dbpath, algorithm):
     try:
         Config.setDbPath(dbpath)
         Config.setAlgorithm(algorithm)
+        Config.setLastRecords(int(last_records))
         from sharkradar.Controller.Controller import app
         serve(app, listen=addr + ":" + str(port))
     except Exception as e:

@@ -336,6 +336,26 @@ def updateDiscoveryPersist(
     conn.commit()
     conn.close()
 
+def getLatestRecordsDiscoveryLogs(service_name, ip, port, latest_records):
+    """ Fetch latest n records from discovery logs corresponding to 
+        service name, IP and port
+
+        @params:service_name: A string representing service name
+        @params:ip: IP address
+        @params:port: Port numbers
+        @params:latest_records: Limit 
+        @return: List of records in ordered by desc timestamp
+    """
+    DB_PATH = Config.getDbPath()
+    conn = sqlite3.connect(DB_PATH)
+    discovery_instances = conn.execute(
+        """SELECT STATUS FROM DISCOVERY_LOGS WHERE SERVICE_NAME = ? AND IP = ? AND PORT = ? ORDER BY TIME_STAMP DESC LIMIT ?""",
+        (service_name,
+         ip,
+         port,
+         latest_records)).fetchall()
+    conn.close()
+    return discovery_instances
 
 def deleteServiceByNameAndIpAndPort(service_name, ip, port):
     """
