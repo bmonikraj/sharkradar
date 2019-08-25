@@ -70,6 +70,17 @@ class Health:
         		success_rate >= 0.0 and success_rate <= 100.0)):
             if(service_name != "" and ip != "" and port != ""):
                 if status == "up":
+                    sharkradarDbutils.insertServiceByAllPersist(
+                        service_name,
+                        ip,
+                        port,
+                        current_time_stamp,
+                        health_interval,
+                        mem_usage,
+                        cpu_usage,
+                        nw_tput_bw_ratio,
+                        req_active_ratio,
+                        success_rate)
                     response = sharkradarDbutils.findServiceByNameAndIpAndPort(
                         service_name, ip, port)
                     if len(response) > 0:

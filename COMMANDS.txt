@@ -1,0 +1,16 @@
+Test cases with coverage : 
+==========================
+	pytest --disable-pytest-warnings --cov-report term-missing --cov=sharkradar
+
+Build with setup.py for wheel artifact : 
+========================================
+	python setup.py bdist_wheel
+
+Upload to PyPi (Only AUTHOR can upload :P ) : 
+=============================================
+	python -m twine upload dist/*
+
+Run and Update UI Build in Package : 
+====================================
+	1. cd UI/dashboard && npm run build
+	2. cp -r UI/dashboard/build src/sharkradar/NonPy_UI_Build

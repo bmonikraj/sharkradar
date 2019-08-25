@@ -6,7 +6,7 @@ from os.path import dirname as opd, realpath as opr
 import os
 import time
 import json
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 basedir = opd(opd(opd(opr(__file__))))
 sys.path.append(basedir)
@@ -14,9 +14,13 @@ sys.path.append(basedir)
 from sharkradar.Util import sharkradarDbutils
 from sharkradar.Service.Health import Health
 from sharkradar.Service.Discovery import Discovery
+from sharkradar.Service.MonitorRealTime import MonitorRealTime
 
 sharkradarDbutils.createTableIfNotExists()
-app = Flask(__name__)
+STATIC_DIR = os.path.join(opd(opd(opr(__file__))), 'NonPy_UI_Build')
+app = Flask(__name__, 
+    static_folder=os.path.join(STATIC_DIR, 'build/static'), 
+    template_folder=os.path.join(STATIC_DIR, 'build'))
 
 
 @app.route("/health", methods=['PUT'])
@@ -65,16 +69,45 @@ def health():
         return json.dumps(response_objects)
 
 
-@app.route("/discovery/<service_name>", methods=['GET'])
-def discovery(service_name):
+@app.route("/discovery/<retryid>/<service_name>", methods=['GET'])
+def discovery(retryid, service_name):
     """
         API endpoint to fetch address of a service based on service name
         @method: GET
+        @param: retryid (string)
         @params: service_name (String)
         @return : {"ip" : "<value>", "port" : "<value>"}
     """
-    response_objects = {"ip": "", "port": ""}
-    respTuple = Discovery.discovery(service_name)
+    response_objects = {"ip": "", "port": "", "retryid" : ""}
+    respTuple = Discovery.discovery(service_name, retryid)
     response_objects["ip"] = respTuple[0]
     response_objects["port"] = respTuple[1]
+    response_objects["retryid"] = respTuple[2]
     return json.dumps(response_objects)
+
+@app.route("/monitor-real-time/<data>/<limit>", methods=['GET'])
+def monitorRealTime(data, limit):
+    """
+        API endpoint to fetch address of a service based on service name
+        @method: GET
+        @param:data: Type of data required
+        @param:limit: Latest n records
+        @return : List of JSON Objects as services
+    """
+    if(data=="current"):
+        response = MonitorRealTime.getAllServices()
+    if(data=="service"):
+        response = MonitorRealTime.getAllServicesLog(limit)
+    if(data=="discovery"):
+        response = MonitorRealTime.getAllDiscoveryLog(limit)
+    if(data!="current" and data!="service" and data!="discovery"):
+        return json.dumps([])
+    return json.dumps(response)
+
+@app.route('/dashboard/')
+def UIserve():
+    return render_template('index.html')
+
+
+if __name__ == '__main__':
+    app.run(use_reloader=True, port=5000, threaded=True)
